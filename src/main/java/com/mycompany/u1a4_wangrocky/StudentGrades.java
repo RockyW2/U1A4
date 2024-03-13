@@ -40,13 +40,13 @@ public class StudentGrades extends javax.swing.JFrame {
         courseAverageButton = new javax.swing.JButton();
         test1Field = new javax.swing.JTextField();
         test2Label1 = new javax.swing.JLabel();
-        test2Field1 = new javax.swing.JTextField();
+        test2Field = new javax.swing.JTextField();
         test3Field = new javax.swing.JTextField();
         test2Label2 = new javax.swing.JLabel();
         test4Field = new javax.swing.JTextField();
         test2Label3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        outputArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Student Grades ");
@@ -60,6 +60,7 @@ public class StudentGrades extends javax.swing.JFrame {
         lastNameLabel.setFont(new java.awt.Font("Rockwell Condensed", 1, 14)); // NOI18N
         lastNameLabel.setText("Last Name: ");
 
+        displayArea.setEditable(false);
         displayArea.setColumns(20);
         displayArea.setRows(5);
         jScrollPane1.setViewportView(displayArea);
@@ -75,6 +76,11 @@ public class StudentGrades extends javax.swing.JFrame {
 
         addButton.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         addButton.setText("Add");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
 
         StudentAverageButton.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         StudentAverageButton.setText("Student Average");
@@ -88,9 +94,10 @@ public class StudentGrades extends javax.swing.JFrame {
 
         test2Label3.setText("Test 4:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        outputArea.setEditable(false);
+        outputArea.setColumns(20);
+        outputArea.setRows(5);
+        jScrollPane2.setViewportView(outputArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,33 +118,26 @@ public class StudentGrades extends javax.swing.JFrame {
                                 .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(test2Label)
-                                                    .addGap(9, 9, 9)
-                                                    .addComponent(test1Field, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(test2Label1)
-                                                    .addGap(9, 9, 9)
-                                                    .addComponent(test2Field1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(test2Label3)
-                                                    .addGap(9, 9, 9)
-                                                    .addComponent(test4Field, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(test2Label2)
-                                                    .addGap(9, 9, 9)
-                                                    .addComponent(test3Field, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGap(26, 26, 26))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(StudentAverageButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(addButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(18, 18, 18)))
-                                    .addComponent(courseAverageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(4, 4, 4)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(test2Label)
+                                        .addGap(9, 9, 9)
+                                        .addComponent(test1Field, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(test2Label1)
+                                        .addGap(9, 9, 9)
+                                        .addComponent(test2Field, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(test2Label3)
+                                        .addGap(9, 9, 9)
+                                        .addComponent(test4Field, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(test2Label2)
+                                        .addGap(9, 9, 9)
+                                        .addComponent(test3Field, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(courseAverageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(StudentAverageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(22, 22, 22)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -172,7 +172,7 @@ public class StudentGrades extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(test2Label1)
-                            .addComponent(test2Field1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(test2Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(test2Label2)
@@ -197,9 +197,87 @@ public class StudentGrades extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    String[][] studentArr = new String[20][6];
+    int numStudents = 0;
+    String display = "";
+    
+    
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        int test1Int, test2Int, test3Int, test4Int;
+        
+        
+        
+        
+        try{
+            test1Int = Integer.parseInt(test1Field.getText());
+            if(test1Int < 0){
+                outputArea.setText("Please Enter A Positive Test Mark For Test 1");
+            }else{
+                try{
+                    test2Int = Integer.parseInt(test2Field.getText());
+                    if(test2Int < 0){
+                        outputArea.setText("Please Enter A Positive Test Mark For Test 2");
+                    }else{
+                        try{
+                        test3Int = Integer.parseInt(test3Field.getText());
+                        if(test3Int < 0){
+                            outputArea.setText("Please Enter A Positive Test Mark For Test 3");
+                        }else{
+                            try{
+                                test4Int = Integer.parseInt(test4Field.getText());
+                                if(test4Int < 0){
+                                    outputArea.setText("Please Enter A Positive Test Mark For Test 4");
+                                }else{
+
+
+                                    studentArr[numStudents][0] = firstNameField.getText();
+                                    studentArr[numStudents][1] = lastNameField.getText();
+                                    studentArr[numStudents][2] = test1Field.getText();
+                                    studentArr[numStudents][3] = test2Field.getText();
+                                    studentArr[numStudents][4] = test3Field.getText();
+                                    studentArr[numStudents][5] = test4Field.getText();
+
+                                    display += "\n Student #"+(numStudents+1)+": ";
+                                    display += studentArr[numStudents][0]+" ";
+                                    display += studentArr[numStudents][1]+" ";
+                                    display += "Grade 1: "+studentArr[numStudents][2]+ ", ";
+                                    display += "Grade 2: "+studentArr[numStudents][3]+ ", ";
+                                    display += "Grade 3: "+studentArr[numStudents][4]+ ", ";
+                                    display += "Grade 4: "+studentArr[numStudents][5];
+
+                                    numStudents ++;
+
+                                    displayArea.setText(display);
+                                    outputArea.setText("");
+                                }
+                            }
+                            catch(Exception e){
+                            outputArea.setText("Invalid Input. Please Enter The Correct Test Marks For Test 4");
+                            }
+                        }
+                        
+                        }
+                        catch(Exception e){
+                            outputArea.setText("Invalid Input. Please Enter The Correct Test Marks For Test 3");
+                            }
+                        }
+                
+                }
+                catch(Exception e){
+                    outputArea.setText("Invalid Input. Please Enter The Correct Test Marks For Test 2");
+                    }
+            }
+            
+        }
+        catch(Exception e){
+            outputArea.setText("Invalid Input. Please Enter The Correct Test Marks For Test 1");
+        }
+        
+    }//GEN-LAST:event_addButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,11 +324,11 @@ public class StudentGrades extends javax.swing.JFrame {
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JLabel lastNameLabel;
+    private javax.swing.JTextArea outputArea;
     private javax.swing.JTextField test1Field;
-    private javax.swing.JTextField test2Field1;
+    private javax.swing.JTextField test2Field;
     private javax.swing.JLabel test2Label;
     private javax.swing.JLabel test2Label1;
     private javax.swing.JLabel test2Label2;
