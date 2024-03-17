@@ -4,6 +4,9 @@
  */
 package com.mycompany.u1a4_wangrocky;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author Rocky
@@ -84,9 +87,19 @@ public class StudentGrades extends javax.swing.JFrame {
 
         StudentAverageButton.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         StudentAverageButton.setText("Student Average");
+        StudentAverageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StudentAverageButtonActionPerformed(evt);
+            }
+        });
 
         courseAverageButton.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         courseAverageButton.setText("Course Average");
+        courseAverageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseAverageButtonActionPerformed(evt);
+            }
+        });
 
         test2Label1.setText("Test 2:");
 
@@ -135,8 +148,8 @@ public class StudentGrades extends javax.swing.JFrame {
                                         .addGap(9, 9, 9)
                                         .addComponent(test3Field, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(courseAverageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(StudentAverageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(StudentAverageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(22, 22, 22)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,7 +198,7 @@ public class StudentGrades extends javax.swing.JFrame {
                         .addComponent(addButton)
                         .addGap(18, 18, 18)
                         .addComponent(StudentAverageButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(12, 12, 12)
                         .addComponent(courseAverageButton))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -207,77 +220,106 @@ public class StudentGrades extends javax.swing.JFrame {
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        int test1Int, test2Int, test3Int, test4Int;
-        
-        
-        
+        double test1Double, test2Double, test3Double, test4Double;
+        boolean validMark = false;
+        String firstName, lastName;
         
         try{
-            test1Int = Integer.parseInt(test1Field.getText());
-            if(test1Int < 0){
-                outputArea.setText("Please Enter A Positive Test Mark For Test 1");
+            test1Double = Math.round(Double.parseDouble(test1Field.getText())*10.0)/10.0;
+            test2Double = Math.round(Double.parseDouble(test2Field.getText())*10.0)/10.0;
+            test3Double = Math.round(Double.parseDouble(test3Field.getText())*10.0)/10.0;
+            test4Double = Math.round(Double.parseDouble(test4Field.getText())*10.0)/10.0;
+            firstName = firstNameField.getText();
+            lastName = lastNameField.getText();
+            if(test1Double < 0.0 || test2Double < 0.0 || test3Double < 0.0 || test4Double < 0.0){
+                outputArea.setText("Please Enter A Positive Test Mark ");
             }else{
-                try{
-                    test2Int = Integer.parseInt(test2Field.getText());
-                    if(test2Int < 0){
-                        outputArea.setText("Please Enter A Positive Test Mark For Test 2");
-                    }else{
-                        try{
-                        test3Int = Integer.parseInt(test3Field.getText());
-                        if(test3Int < 0){
-                            outputArea.setText("Please Enter A Positive Test Mark For Test 3");
-                        }else{
-                            try{
-                                test4Int = Integer.parseInt(test4Field.getText());
-                                if(test4Int < 0){
-                                    outputArea.setText("Please Enter A Positive Test Mark For Test 4");
-                                }else{
-
-
-                                    studentArr[numStudents][0] = firstNameField.getText();
-                                    studentArr[numStudents][1] = lastNameField.getText();
-                                    studentArr[numStudents][2] = test1Field.getText();
-                                    studentArr[numStudents][3] = test2Field.getText();
-                                    studentArr[numStudents][4] = test3Field.getText();
-                                    studentArr[numStudents][5] = test4Field.getText();
-
-                                    display += "\n Student #"+(numStudents+1)+": ";
-                                    display += studentArr[numStudents][0]+" ";
-                                    display += studentArr[numStudents][1]+" ";
-                                    display += "Grade 1: "+studentArr[numStudents][2]+ ", ";
-                                    display += "Grade 2: "+studentArr[numStudents][3]+ ", ";
-                                    display += "Grade 3: "+studentArr[numStudents][4]+ ", ";
-                                    display += "Grade 4: "+studentArr[numStudents][5];
-
-                                    numStudents ++;
-
-                                    displayArea.setText(display);
-                                    outputArea.setText("");
-                                }
-                            }
-                            catch(Exception e){
-                            outputArea.setText("Invalid Input. Please Enter The Correct Test Marks For Test 4");
-                            }
-                        }
-                        
-                        }
-                        catch(Exception e){
-                            outputArea.setText("Invalid Input. Please Enter The Correct Test Marks For Test 3");
-                            }
-                        }
+                validMark = true;
                 
-                }
-                catch(Exception e){
-                    outputArea.setText("Invalid Input. Please Enter The Correct Test Marks For Test 2");
+                
+                for (int i=0; i <= numStudents; i++){
+                    if (firstName.equals(studentArr[i][0]) && lastName.equals(studentArr[i][1])){
+                        validMark = false;
+                        outputArea.setText("Name Already Exists Within The Class List ");
                     }
+                }
+                
+                if (validMark == true){
+                    studentArr[numStudents][0] = firstNameField.getText();
+                    studentArr[numStudents][1] = lastNameField.getText();
+                    studentArr[numStudents][2] = test1Double+"";
+                    studentArr[numStudents][3] = test2Double+"";
+                    studentArr[numStudents][4] = test3Double+"";
+                    studentArr[numStudents][5] = test4Double+"";
+
+                    display += "\n Student #"+(numStudents+1)+": ";
+                    display += studentArr[numStudents][0]+" ";
+                    display += studentArr[numStudents][1]+" ";
+                    display += "Grade 1: "+studentArr[numStudents][2]+ ", ";
+                    display += "Grade 2: "+studentArr[numStudents][3]+ ", ";
+                    display += "Grade 3: "+studentArr[numStudents][4]+ ", ";
+                    display += "Grade 4: "+studentArr[numStudents][5];
+
+                    numStudents ++;
+
+                    displayArea.setText(display);
+                    outputArea.setText("");
+                }
             }
             
         }
         catch(Exception e){
-            outputArea.setText("Invalid Input. Please Enter The Correct Test Marks For Test 1");
+            outputArea.setText("Invalid Input. Please Enter The Correct Test Marks");
         }
-        
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void StudentAverageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StudentAverageButtonActionPerformed
+        double test1Double, test2Double, test3Double, test4Double, gradeAverage;
+        boolean validMark = false;
+        String firstName, lastName;
+        
+        try{
+            test1Double = Math.round(Double.parseDouble(test1Field.getText())*10.0)/10.0;
+            test2Double = Math.round(Double.parseDouble(test2Field.getText())*10.0)/10.0;
+            test3Double = Math.round(Double.parseDouble(test3Field.getText())*10.0)/10.0;
+            test4Double = Math.round(Double.parseDouble(test4Field.getText())*10.0)/10.0;
+            firstName = firstNameField.getText();
+            lastName = lastNameField.getText();
+            if(test1Double < 0.0 || test2Double < 0.0 || test3Double < 0.0 || test4Double < 0.0){
+                outputArea.setText("Please Enter A Positive Test Mark ");
+            }else{
+                validMark = true;
+                
+                
+                if (validMark == true){
+                    gradeAverage = Math.round(((test1Double + test2Double + test3Double + test4Double)/4.0)*10.0)/10.0;
+                    firstName = firstNameField.getText();
+                    lastName = lastNameField.getText();
+
+                    displayArea.setText(display);
+                    outputArea.setText(firstName + " " + lastName + "'s Average Grade is " + gradeAverage + "%");
+                }
+            }
+            
+        }
+        catch(Exception e){
+            outputArea.setText("Invalid Input. Please Enter The Correct Test Marks");
+        }
+    }//GEN-LAST:event_StudentAverageButtonActionPerformed
+
+    private void courseAverageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseAverageButtonActionPerformed
+        double classAverage=0, studentNum=0;
+        for(int i=0; i < numStudents; i++){
+            for(int j=2; j<6; j++){
+                classAverage += Double.parseDouble(studentArr[i][j]);
+                studentNum++;
+            }
+        }
+        classAverage =Math.round((classAverage/studentNum)*10)/10.0;
+        
+        outputArea.setText("The Class Average Is "+classAverage+"%");
+        
+    }//GEN-LAST:event_courseAverageButtonActionPerformed
 
     /**
      * @param args the command line arguments

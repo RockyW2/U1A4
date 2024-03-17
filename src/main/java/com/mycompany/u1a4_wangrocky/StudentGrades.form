@@ -61,8 +61,8 @@
                                       <Component id="test3Field" min="-2" pref="68" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="courseAverageButton" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
-                                  <Component id="StudentAverageButton" min="-2" pref="118" max="-2" attributes="0"/>
                                   <Component id="addButton" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
+                                  <Component id="StudentAverageButton" min="-2" pref="118" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -127,7 +127,7 @@
                       <Component id="addButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="StudentAverageButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="courseAverageButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -217,6 +217,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Student Average"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="StudentAverageButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="courseAverageButton">
       <Properties>
@@ -225,6 +228,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Course Average"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="courseAverageButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="test1Field">
     </Component>
